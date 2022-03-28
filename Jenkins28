@@ -1,0 +1,48 @@
+node{
+    def MHD = tool name: "maven3.8.4"
+    stage('1clone'){
+        git credentialsId: 'Github-credentials', url: 'https://github.com/Bexfit-financial/paypal-web-app'
+    }
+    stage('2MavenBuild'){
+        sh 'echo build job in progress'
+        sh "${MHD}/bin/mvn clean package"
+        sh 'echo build job completed and ready for code check'
+    }
+    stage('3CodeQuality'){
+        sh 'echo build job in progress'
+        sh "${MHD}/bin/mvn sonar:sonar"
+        sh 'echo code quality completed'
+    }
+    stage('4UploadtoArtifact'){
+        sh 'echo artifact upload in progress'
+        sh "${MHD}/bin/mvn deploy"
+        sh 'echo artifact upload completed'
+    }
+    /* stage('5DevDeployment'){
+        sh 'echo start dev deploy'
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://100.26.194.175:8080')], contextPath: 'pipelineDEVdeployment', war: 'target/*war'
+        sh 'echo dev deploy completed'
+    }
+     stage('6UATDeployment'){
+        sh 'echo UAT deployment in progress'
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://100.26.194.175:8080')], contextPath: 'pipelineUTdeployment', war: 'target/*war'
+        sh 'echo artifact upload to UAT completed'
+    }
+    stage('7Approval'){
+        timeout(time:5, unit:'DAYS'){
+            input message: 'please approve'
+    }
+    }
+    stage('8PRODDeployment'){
+        sh 'echo PROD deployment in progress'
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://100.26.194.175:8080')], contextPath: 'pipelineProd2deployment', war: 'target/*war'
+        sh 'echo PROD deployment completed'
+    }
+    stage('9EmailNotification.'){
+        emailext body: '''Hi 
+Build is ready to be approved in cat.
+regards 
+Chima''', recipientProviders: [developers()], subject: 'Prof stat', to: 'uniquechima@gmail.com'
+    }
+    */
+    }
