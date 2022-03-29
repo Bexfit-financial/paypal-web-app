@@ -47,4 +47,3 @@ stage('5.Deploy2UAT'){
       }
     }
   }
-  } 
