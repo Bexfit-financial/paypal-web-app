@@ -48,34 +48,3 @@ stage('5.Deploy2UAT'){
     }
   }
   } 
-    post{
-    always{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Success,
-
-The build was great.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'sucess', to: 'mylandmarktech@gmail.com'
-    }
-    success{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Success,
-
-The build was great.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'sucess', to: 'mylandmarktech@gmail.com'
-    }
-    failure{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Failed,
-
-The build Failed.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'Failed', to: 'mylandmarktech@gmail.com'
-    }
-  }
-}
-
