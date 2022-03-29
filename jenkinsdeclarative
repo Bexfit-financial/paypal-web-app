@@ -30,7 +30,6 @@ pipeline{
         sh "mvn deploy"
       }
     }
-    /*
    stage('5.Deploy2UAT'){
       steps{
         sh "echo DEPLOYING TO UAT for further testing and validation"
@@ -78,5 +77,4 @@ Landmark Technologies
 +14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'Failed', to: 'mylandmarktech@gmail.com'
     }
   }
-  */
 }
