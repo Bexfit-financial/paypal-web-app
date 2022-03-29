@@ -33,7 +33,9 @@ pipeline{
 stage('5.Deploy2UAT'){
       steps{
         sh "echo DEPLOYING TO UAT for further testing and validation"
-        sh "deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://54.173.233.121:8080')], contextPath: 'pipelineProd2deployment', war: 'target/*'"
+        sshagent(['agentcredentials']) {
+        sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.89.218:/opt/tomcat9/webapps/uatapp.war"
+      }
     }
   }
       stage('6.Deploy2Prod'){
@@ -47,7 +49,8 @@ stage('5.Deploy2UAT'){
       }
     }
   }
-post{
+  } 
+    post{
     always{
       mail bcc: 'mylandmarktech@gmail.com', body: '''Success,
 
@@ -76,4 +79,5 @@ Landmark Technologies
 +14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'Failed', to: 'mylandmarktech@gmail.com'
     }
   }
+
 }
