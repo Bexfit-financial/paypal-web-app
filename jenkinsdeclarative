@@ -42,5 +42,5 @@ stage('5.Deploy2UAT'){
         timeout(time:8, unit:'HOURS'){
         input message: 'Please approve deployment to Production'
       }
-     deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.82.95:8080')], contextPath: 'pipelineProd12deployment', war: 'target/*war'
-  }
+   }
+ } 
