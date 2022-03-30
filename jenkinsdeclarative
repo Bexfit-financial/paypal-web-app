@@ -44,3 +44,9 @@ stage('5.Deploy2UAT'){
       }
    }
  } 
+stage('7.Deploy2prod'){
+      steps{
+        sh "echo DEPLOYING TO prod for further testing and validation"
+            deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.82.95:8080')], contextPath: 'pipelineDEVdeployment', war: 'target/*war'
+    }
+  }
