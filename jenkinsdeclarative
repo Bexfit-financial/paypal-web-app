@@ -29,6 +29,7 @@ pipeline{
       steps{
         sh "mvn deploy"
       }
+      /*
     }
 stage('5.Deploy2UAT'){
       steps{
@@ -79,5 +80,5 @@ Landmark Technologies
 +14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'Failed', to: 'mylandmarktech@gmail.com'
     }
   }
-
+*/
 }
