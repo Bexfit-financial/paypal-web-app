@@ -44,4 +44,3 @@ stage('5.Deploy2UAT'){
       }
      deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.82.95:8080')], contextPath: 'pipelineProd12deployment', war: 'target/*war'
     }
-  }
