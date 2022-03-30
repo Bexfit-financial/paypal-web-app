@@ -42,39 +42,14 @@ stage('5.Deploy2UAT'){
         timeout(time:8, unit:'HOURS'){
         input message: 'Please approve deployment to Production'
       }
-        sshagent(['agentcredentials']) {
-        sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.89.218:/opt/tomcat9/webapps/app.war"
-      }
+     deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.82.95:8080')], contextPath: 'pipelineProd12deployment', war: 'target/*war'
     }
   }
   } 
-    post{
-    always{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Success,
-
-The build was great.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'sucess', to: 'mylandmarktech@gmail.com'
+    stage('9EmailNotification.'){
+        emailext body: '''Hi 
+Build is ready to be approved in cat.
+regards 
+Chima''', recipientProviders: [developers()], subject: 'Prof stat', to: 'uniquechima@gmail.com'
     }
-    success{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Success,
-
-The build was great.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'sucess', to: 'mylandmarktech@gmail.com'
-    }
-    failure{
-      mail bcc: 'mylandmarktech@gmail.com', body: '''Failed,
-
-The build Failed.
-
-Regards
-Landmark Technologies 
-+14372152483''', cc: 'mylandmarktech@gmail.com', from: '', replyTo: '', subject: 'Failed', to: 'mylandmarktech@gmail.com'
-    }
-  }
 }
