@@ -33,9 +33,7 @@ pipeline{
 stage('5.Deploy2UAT'){
       steps{
         sh "echo DEPLOYING TO UAT for further testing and validation"
-        sshagent(['agentcredentials']) {
-        sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.89.218:/opt/tomcat9/webapps/uatapp.war"
-      }
+            deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.82.95:8080')], contextPath: 'pipelineDEVdeployment', war: 'target/*war'
     }
   }
       stage('6.Deploy2Prod'){
